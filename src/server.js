@@ -2,8 +2,6 @@ import { graphqlLambda, graphiqlLambda } from 'apollo-server-lambda';
 
 import * as Schema from './schema';
 
-const PORT = 4000;
-
 
 const schemaFunction =
   Schema.schemaFunction ||
