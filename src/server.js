@@ -1,14 +1,8 @@
-import express from 'express';
-import { graphqlExpress, graphiqlExpress } from 'apollo-server-express';
-import bodyParser from 'body-parser';
-import cors from 'cors';
-
+import { graphqlLambda, graphiqlLambda } from 'apollo-server-lambda';
 
 import * as Schema from './schema';
 
 const PORT = 4000;
-const server = express();
-
 
 
 const schemaFunction =
@@ -33,9 +27,8 @@ const contextFunction =
     );
   };
 
-server.use(cors())
 
-server.use('/graphql', bodyParser.json(), graphqlExpress(async (request) => {
+exports.graphqlHandler = graphqlLambda(async (request) => {
   if (!schema) {
     schema = schemaFunction(process.env)
   }
@@ -48,9 +41,9 @@ server.use('/graphql', bodyParser.json(), graphqlExpress(async (request) => {
     context,
     tracing: true,
   };
-}));
+});
 
-server.use('/graphiql', graphiqlExpress({
+exports.graphiqlHandler = graphiqlLambda({
   endpointURL: '/graphql',
   query: `# Welcome to GraphiQL
 
@@ -62,9 +55,4 @@ server.use('/graphiql', graphiqlExpress({
   }
 }
 `,
-}));
-
-server.listen(PORT, () => {
-  console.log(`GraphQL Server is now running on http://localhost:${PORT}/graphql`);
-  console.log(`View GraphiQL at http://localhost:${PORT}/graphiql`);
 });
