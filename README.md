@@ -9,11 +9,10 @@ You can see the original pad at [https://launchpad.graphql.com/nxxxpj9mx7](https
 ### Quick start guide
 
 ```bash
-npm install
-
-npm start
+yarn
+yarn start
 ```
-
+Then open `http://localhost:4000/graphiql` in your browser.
 
 
 
