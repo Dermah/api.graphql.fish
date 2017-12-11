@@ -20,6 +20,7 @@
     "apollo-engine": "^0.5.2",
     "apollo-server-express": "^1.2.0",
     "apollo-tracing": "^0.1.1",
+    "apollo-upload-server": "^4.0.0-alpha.1",
     "body-parser": "^1.18.2",
     "cors": "^2.8.4",
     "express": "^4.16.2",
