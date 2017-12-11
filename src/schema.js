@@ -5,6 +5,7 @@
 
 // graphql-tools combines a schema string with resolvers.
 import { makeExecutableSchema } from 'graphql-tools';
+import { GraphQLUpload } from 'apollo-upload-server'
 
 // Construct a schema, using GraphQL schema language
 const typeDefs = `
@@ -16,7 +17,9 @@ const typeDefs = `
 		name: String
 		picture: String
 		description: String
-	}
+  }
+
+  scalar Upload
 `;
 
 // Provide resolver functions for your schema fields
@@ -30,6 +33,7 @@ const resolvers = {
       }];
     },
   },
+  Upload: GraphQLUpload
 };
 
 // Required: Export the GraphQL.js schema object as "schema"
