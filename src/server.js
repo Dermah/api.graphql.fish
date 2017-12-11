@@ -2,6 +2,7 @@ import express from 'express';
 import { graphqlExpress, graphiqlExpress } from 'apollo-server-express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
+import { apolloUploadExpress } from 'apollo-upload-server'
 import awsServerlessExpress from 'aws-serverless-express';
 
 import * as Schema from './schema';
@@ -34,20 +35,25 @@ const contextFunction =
 
 server.use(cors())
 
-server.use('/graphql', bodyParser.json(), graphqlExpress(async (request) => {
-  if (!schema) {
-    schema = schemaFunction(process.env)
-  }
-  const context = await contextFunction(request.headers, process.env);
-  const rootValue = await rootFunction(request.headers, process.env);
+server.use(
+  '/graphql',
+  bodyParser.json(),
+  apolloUploadExpress(/* Options */),
+  graphqlExpress(async (request) => {
+    if (!schema) {
+      schema = schemaFunction(process.env)
+    }
+    const context = await contextFunction(request.headers, process.env);
+    const rootValue = await rootFunction(request.headers, process.env);
 
-  return {
-    schema: await schema,
-    rootValue,
-    context,
-    tracing: true,
-  };
-}));
+    return {
+      schema: await schema,
+      rootValue,
+      context,
+      tracing: true,
+    };
+  })
+);
 
 server.use('/graphiql', graphiqlExpress({
   endpointURL: '/graphql',
