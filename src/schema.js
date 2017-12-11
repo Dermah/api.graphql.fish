@@ -7,6 +7,8 @@
 import { makeExecutableSchema } from 'graphql-tools';
 import { GraphQLUpload } from 'apollo-upload-server'
 
+import { createWriteStream } from 'fs'
+
 // Construct a schema, using GraphQL schema language
 const typeDefs = `
   type Query {
@@ -20,7 +22,31 @@ const typeDefs = `
   }
 
   scalar Upload
+
+  type Mutation {
+    singleUpload (file: Upload!): String!
+    multipleUpload (files: [Upload!]!): [String!]!
+  }
 `;
+
+
+const storeUpload = async ({ stream, filename }) => {
+  const path = `${filename}`
+
+  return new Promise((resolve, reject) =>
+    stream
+      .pipe(createWriteStream(path))
+      .on('finish', () => resolve({ id: filename, path }))
+      .on('error', reject)
+  )
+}
+
+const processUpload = async upload => {
+  const { stream, filename, mimetype, encoding } = await upload
+  const { id, path } = await storeUpload({ stream, filename })
+  return filename;
+  // return recordFile({ id, filename, mimetype, encoding, path })
+}
 
 // Provide resolver functions for your schema fields
 const resolvers = {
@@ -33,7 +59,13 @@ const resolvers = {
       }];
     },
   },
-  Upload: GraphQLUpload
+  Upload: GraphQLUpload,
+  Mutation: {
+    singleUpload: async (obj, { file }) => {
+      return await processUpload(file)
+    },
+    multipleUpload: (obj, { files }) => Promise.all(files.map(processUpload))
+  }
 };
 
 // Required: Export the GraphQL.js schema object as "schema"
