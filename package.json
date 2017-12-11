@@ -25,6 +25,8 @@
     "apollo-engine": "^0.5.2",
     "apollo-server-lambda": "^1.2.0",
     "apollo-tracing": "^0.1.1",
+    "apollo-upload-server": "^4.0.0-alpha.1",
+    "aws-lambda-multipart-parser": "^0.0.6",
     "graphql": "^0.10.3",
     "graphql-extensions": "^0.0.5",
     "graphql-tools": "^2.12.0",
