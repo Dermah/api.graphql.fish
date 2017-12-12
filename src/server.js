@@ -2,13 +2,12 @@ import express from 'express';
 import { graphqlExpress, graphiqlExpress } from 'apollo-server-express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-
+import serverless from 'serverless-http';
 
 import * as Schema from './schema';
 
 const PORT = 4000;
 const server = express();
-
 
 
 const schemaFunction =
@@ -64,7 +63,10 @@ server.use('/graphiql', graphiqlExpress({
 `,
 }));
 
-server.listen(PORT, () => {
-  console.log(`GraphQL Server is now running on http://localhost:${PORT}/graphql`);
-  console.log(`View GraphiQL at http://localhost:${PORT}/graphiql`);
-});
+// server.listen(PORT, () => {
+//   console.log(`GraphQL Server is now running on http://localhost:${PORT}/graphql`);
+//   console.log(`View GraphiQL at http://localhost:${PORT}/graphiql`);
+// });
+
+
+module.exports.handler = serverless(server);
