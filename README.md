@@ -8,15 +8,17 @@ You can see the original pad at [https://launchpad.graphql.com/nxxxpj9mx7](https
 
 ### Quick start guide
 
-```bash
+```sh
 yarn
 yarn start
 ```
-Then open `http://localhost:4000/graphiql` in your browser.
 
+Then open `http://localhost:4000/dev/graphiql` in your browser.
 
+### Quick deploy guide
 
+[Install](https://aws.amazon.com/cli) and [Configure](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html) the AWS command line. Then
 
-Happy hacking!
-
-The Apollo team :)
+```sh
+yarn deploy
+```

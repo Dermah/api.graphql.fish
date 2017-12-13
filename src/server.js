@@ -41,9 +41,11 @@ exports.graphqlHandler = graphqlLambda(async (request) => {
   };
 });
 
-exports.graphiqlHandler = graphiqlLambda({
-  endpointURL: '/graphql',
-  query: `# Welcome to GraphiQL
+exports.graphiqlHandler = graphiqlLambda((event) => {
+  const stage = event.requestContext.stage;
+  return {
+    endpointURL: `${'/' + stage}/graphql`,
+    query: `# Welcome to GraphiQL
 
 {
   allFish {
@@ -53,4 +55,5 @@ exports.graphiqlHandler = graphiqlLambda({
   }
 }
 `,
+  }
 });

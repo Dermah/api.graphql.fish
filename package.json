@@ -5,7 +5,8 @@
   "main": "./src/server.js",
   "scripts": {
     "build": "webpack",
-    "start": "sls offline",
+    "start": "sls offline --prefix dev",
+    "deploy": "sls deploy",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
