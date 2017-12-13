@@ -8,11 +8,20 @@ provider:
 plugins:
   - serverless-offline
   - serverless-webpack
+  - serverless-domain-manager
 
 custom:
   serverless-offline:
     port: 4000
   webpackIncludeModules: true
+  settings:
+    domains:
+      dev: "api.graphql.fish"
+  customDomain:
+    domainName: ${self:custom.settings.domains.${opt:stage, self:provider.stage}}
+    basePath: ''
+    stage: ${opt:stage, self:provider.stage}
+    createRoute53Record: true
 
 functions:
   graphql:

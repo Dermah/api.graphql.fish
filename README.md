@@ -17,7 +17,15 @@ Then open `http://localhost:4000/dev/graphiql` in your browser.
 
 ### Quick deploy guide
 
-[Install](https://aws.amazon.com/cli) and [Configure](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html) the AWS command line. Then
+[Install](https://aws.amazon.com/cli) and [Configure](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html) the AWS command line.
+
+Once only, create the domain mapping to AWS Lambda:
+
+```sh
+yarn sls create_domain
+```
+
+Then you can deploy as many updates as you want:
 
 ```sh
 yarn deploy
