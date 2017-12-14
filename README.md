@@ -16,7 +16,6 @@ Then open `http://localhost:4000/graphiql` in your browser.
 
 
 
+### Different versions
 
-Happy hacking!
-
-The Apollo team :)
+Check out the [different branches](https://github.com/Dermah/api.graphql.fish/branches) to see how the code differs between Express and Lambda.
