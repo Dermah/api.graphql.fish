@@ -58,7 +58,7 @@ exports.graphiqlHandler = graphiqlLambda((event) => {
     query: `# Welcome to GraphiQL
 
 {
-  allFish {
+  fish {
     name
     picture
     description
